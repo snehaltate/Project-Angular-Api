@@ -1,0 +1,37 @@
+
+<mat-card  class="example-card">
+  <h1>Chip-Cart</h1>
+  <h3>Enter Product details</h3>
+  <form>
+      <div class="example-container">
+          <mat-form-field appearance="fill">
+          <mat-label>Enter Product Title</mat-label>
+          <input matInput placeholder="eg.laptop" formControlName="title" required>
+
+          </mat-form-field>
+      </div>
+      <div class="example-container">
+          <mat-form-field appearance="fill">
+          <mat-label>Enter Product Description</mat-label>
+          <input matInput placeholder="Description" formControlName="description" required>
+
+          </mat-form-field>
+        </div>
+        <div class="example-container">
+            <mat-form-field appearance="fill">
+            <mat-label>Enter Product Price</mat-label>
+            <input  matInput type="number" formControlName="price" required>
+
+            </mat-form-field>
+        </div>
+        <div class="example-container">
+            <mat-form-field appearance="fill">
+            <mat-label>Enter Product Image</mat-label>
+            <input matInput  formControlName="image" >
+
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button  color="primary">Add Product</button>
+      </form>
+    </mat-card>
