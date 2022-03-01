@@ -1,1 +1,42 @@
-<p>user works!</p>
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Hi, {{userData.name|uppercase}}</mat-card-title>
+        <mat-card-subtitle>Your Profile </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <h3>
+            <table>
+                <tr>
+                    <td> Name:</td>
+                    <td> {{userData.name|uppercase}}</td>
+                </tr>
+                <tr>
+                    <td> Email:</td>
+                    <td> {{userData.email}}</td>
+                </tr>
+                <tr>
+                    <td> Address:</td>
+                    <td> {{userData.address}}</td>
+                </tr>
+                <tr>
+                    <td> Mobile:</td>
+                    <td> ****{{userData.mobile| slice:-4}}</td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <button style="margin-right: 10px;" mat-raised-button color="primary" (click)="openDialog()">
+                            Edit
+                        </button>
+                        <button mat-raised-button color="warn" (click)="deleteUserDetail(userData)">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </table>
+
+        </h3>
+    </mat-card-content>
+</mat-card>

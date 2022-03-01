@@ -105,3 +105,17 @@
 
 // }
 // ];
+
+export class ProductModel{
+  id : number= 0;
+  title: string= " ";
+  description:string=" ";
+  categories:string=" ";
+  price:number=0;
+  image:string="";
+  userid : number=0;
+  // createdAt:Date;
+  // updatedAt!:Date;
+
+
+}

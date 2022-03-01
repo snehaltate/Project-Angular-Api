@@ -1,46 +1,41 @@
 import { Component, OnInit } from '@angular/core';
+// import { title } from 'process';
 import { CartService } from '../service/cart.service';
 import { ProductService } from '../service/product.service';
-// import { HeaderComponent } from '../header/header.component';
-
-// import { Products } from './Iproduct';
-
-
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-
-
 export class ProductComponent implements OnInit {
-  // product=Products;
-  // product:Products={
-  //   title:"",description:"",categories:"",price:0,image:""
-  // }
-
 public productList : any;
-public pQuantity:any;
-constructor(private api :ProductService , private CartService  :CartService, ) { }
-
+//  public filterCategory : any;
+//  searchKey:string="";
+public pQuantity:number=1;
+constructor(private api :ProductService , private CartService:CartService) { }
 ngOnInit(): void {
     this.api.getProduct()
     .subscribe((res:any)=>{
-      this.productList=res;
+      this.productList=res.productDetails;
+      //  this.filterCategory= res.productDetails;
       this.productList.forEach((a:any) => {
-        Object.assign(a,{quantity:1,total:a.price});
+        Object.assign(a,{quantity:this.pQuantity,total:a.price});
+      });
+    });
 
-      })
-
-})
+    //  this.CartService.search.subscribe(val=>{
+    //    this.searchKey = val;
+    //  })
 }
-addtoCart(productList : any, pQuantity:number){
+addtoCart(productList : any, pQuantity:number=1){
   console.log(pQuantity);
   this.CartService.addtoCart(productList,pQuantity);
 }
-
-
-
+getProductByCat(categories:string){
+  this.api.productByCat(categories)
+  .subscribe((res:any)=>{
+    this.productList=res.productDetails;
+  });
 }
-
+}

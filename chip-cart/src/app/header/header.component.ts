@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+// import { MatInput } from '@angular/material/input';
+import { Router } from '@angular/router';
+import { LoginServiceService } from '../login-service.service';
 import { CartService } from '../service/cart.service';
-// import { Products } from '../product/Iproduct';
+import { ProductService } from '../service/product.service';
+
+
+import { user } from '../userInterface';
+
 
 @Component({
   selector: 'app-header',
@@ -8,17 +15,47 @@ import { CartService } from '../service/cart.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-// list=Products;
-public totalItem : number = 0;
-
-  constructor(private CartService:CartService) { }
-
+  userData!:any;
+  userId!: string;
+  public searchTerm :string="";
+  public totalItem : number = 0;
   ngOnInit(): void {
     this.CartService.getProductList()
     .subscribe(res=>{
       this.totalItem = res.length;
-    })
+    });
+
   }
 
 
+
+  getProfile(){
+    const userId=parseInt(localStorage.getItem('token')as string)
+    this.api.getUserById(userId).subscribe(res=>{this.userData=res});
+  }
+  constructor(private CartService:CartService,private api:LoginServiceService,private route:Router, private productservice:ProductService) {}
+  loggedin(){
+    this.userId=localStorage.getItem('token') as string;
+    return this.userId
+  }
+  onLogout(){
+    localStorage.removeItem('token');
+    this.route.navigate(["/products"])
+  }
+  search(event:any){
+    this.searchTerm = (event.target as HTMLInputElement).value;
+    console.log(this.searchTerm);
+    this.productservice.getProductbySearch(event)
+   .subscribe((res:any)=>{
+     res.productDetails;
+  })
+}
+
+
+  // search(title:string){
+  //   this.productservice.getProductbySearch(title)
+  // .subscribe((res:any)=>{
+  //   this.searchTerm=res.productDetails;
+  // });
+  // }
 }
